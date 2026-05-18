@@ -18,7 +18,7 @@ mechanic:
 using namespace std;
 
 class BitGame {
-private:gi
+private:
     uint8_t byte_val;
     uint8_t modifier;
     uint8_t final_val;
