@@ -26,6 +26,7 @@ void BitGame::generate_round(int difficulty) {
                 final_val &= random_byte;
                 pipeline.push_back({"AND", random_byte});
                 break;
+                cout << "[DEBUG] after NOT, final_val is: " << (int)final_val << endl;
             case 1:
                 final_val |= random_byte;
                 pipeline.push_back({"OR ", random_byte});
@@ -78,7 +79,7 @@ void BitGame::start() {
 
         generate_round(current_difficulty);
         cout << "Enter the final integer result (or 'q' to quit): ";
-        cout << "debug: " << (int)final_val << endl; // debug
+        // cout << "debug: " << (int)final_val << endl; 
         cin >> input;
 
         if (input == "q") {
