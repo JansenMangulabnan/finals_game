@@ -10,22 +10,6 @@
 
 using namespace std;
 
-
-#include <iostream>
-#include <string>
-#include <bitset>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <cstdint>
-#include "header_fucntion.h"
-#include "header_bitgame.h"
-
-using namespace std;
-
-// DO NOT REDECLARE base_val, final_val, score, OR operation_step HERE.
-// THEY ALREADY EXIST INSIDE THE CLASS IN YOUR HEADER.
-
 void BitGame::generate_round(int difficulty) {
     base_val = rand() % 256;
     final_val = base_val;
@@ -58,7 +42,6 @@ void BitGame::generate_round(int difficulty) {
     }
 }
 
-// FIXED: added the missing BitGame:: prefix so the compiler knows it's the constructor
 BitGame::BitGame() : score(0) {
     srand(time(0));
 }
