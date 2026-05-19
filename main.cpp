@@ -1,5 +1,5 @@
 #include <iostream>
-#include "header1.h"
+#include "header_bitgame.h"
 
 int main() {
     BitGame game;
