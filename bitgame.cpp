@@ -26,7 +26,6 @@ void BitGame::generate_round(int difficulty) {
                 final_val &= random_byte;
                 pipeline.push_back({"AND", random_byte});
                 break;
-                cout << "[DEBUG] after NOT, final_val is: " << (int)final_val << endl;
             case 1:
                 final_val |= random_byte;
                 pipeline.push_back({"OR ", random_byte});
@@ -41,26 +40,31 @@ void BitGame::generate_round(int difficulty) {
                 break;
             case 4:
                 final_val = (final_val << 1) & 0xFF;
-                pipeline.push_back({"LEFT SHIFT", 1});
+                pipeline.push_back({"LSHF", 1});
                 break;
             case 5:
                 final_val = (final_val >> 1) & 0xFF;
-                pipeline.push_back({"RIGHT SHIFT", 1});
+                pipeline.push_back({"RSHF", 1});
                 break;
         }
     }
 
-    cout << endl << "--- Bitwise Operation Game (Level: " << difficulty <<", Score: " << score <<") ---" << endl;
+    string title = "|================== Bitwise Operation Game (Level: " + to_string(difficulty) + ", Score: " + to_string(score) + ") ==================|";
+    cout << endl << title << endl << endl;
+
+    to_center_msg(title, 8); // initial val cout
     cout << bitset<8>(base_val) << endl;
     
     for (size_t i = 0; i < pipeline.size(); i++) {
+        to_center_msg(title, pipeline[i].op_type.length()); // operation cout
         cout << pipeline[i].op_type << endl;
 
         // for case 3 - 5
-        if (pipeline[i].op_type != "NOT" && 
-            pipeline[i].op_type != "LEFT SHIFT" && 
-            pipeline[i].op_type != "RIGHT SHIFT") {
-            cout << bitset<8>(pipeline[i].byte_val) << endl;
+        if (pipeline[i].op_type != "NOT" &&
+            pipeline[i].op_type != "LSHF" &&
+            pipeline[i].op_type != "RSHF") {
+                to_center_msg(title, 8); // stacked val cout
+                cout << bitset<8>(pipeline[i].byte_val) << endl;
         }
     }
 }
@@ -73,31 +77,34 @@ void BitGame::start() {
     string input;
     while (true) {
         int current_difficulty = (score / 2) + 1;
-        if (current_difficulty > 10) {
+        if (current_difficulty > 10) { // limiter of level
             current_difficulty = 10;
         }
 
         generate_round(current_difficulty);
-        cout << "Enter the final integer result (or 'q' to quit): ";
-        // cout << "debug: " << (int)final_val << endl; 
+
+        cout << endl << "Debug: " << (int)final_val << endl;
+        cout << "Enter the final integer result ([Q/q] to quit): ";
         cin >> input;
 
-        if (input == "q") {
+        if (input == "q" || input == "Q") {
+            cout << endl << "Exiting the game." << endl;
+            clearcls(1000, 0);
             break;
         }
 
         try {
             int user_guess = stoi(input);
             if (user_guess == (int)final_val) {
-                cout << "Correct! +1 point.\n";
+                cout << endl << "Correct! +1 point.\n";
                 score++;
                 clearcls(1000, 0);
             } else {
-                cout << "Wrong. The result was: " << (int)final_val << "\n";
+                cout << endl << "Wrong. The result was: " << (int)final_val << "\n";
                 clearcls(1500, 0);
             }
         } catch (...) {
-            cout << "Invalid input.\n";
+            cout << endl << "Invalid input.\n";
             clearcls(1000, 0);
         }
     }
