@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void clearcls(int wait_before, int wait_after);
+void clear_cls(int wait_before, int wait_after);
 void to_center_msg(string width, int txt_length);
 
 #endif

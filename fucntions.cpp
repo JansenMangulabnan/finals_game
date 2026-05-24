@@ -7,7 +7,7 @@
 using namespace std;  
 
 
-void clearcls(int wait_before, int wait_after) {
+void clear_cls(int wait_before, int wait_after) {
     #ifdef _WIN32
         this_thread::sleep_for(chrono::milliseconds(wait_before));
         system("cls");
@@ -20,9 +20,9 @@ void clearcls(int wait_before, int wait_after) {
     #endif
 }
 
+// center relative to title
 void to_center_msg(string width, int txt_length) {
-    int spaceing = (width.length()-1)/2 - txt_length/2;
-    for (int i = 0; i <= spaceing; i++) {
+    for (int i = 0; i <= (width.length()-1)/2 - txt_length/2; i++) {
         cout << " ";
     }   
 }
