@@ -5,7 +5,7 @@
 #include <ctime>
 #include <vector>
 #include <cstdint>
-#include "header_fucntion.h"
+#include "header_functions.h"
 #include "header_bitgame.h"
 
 using namespace std;

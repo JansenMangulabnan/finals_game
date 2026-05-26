@@ -1,5 +1,6 @@
-#ifndef FINALS_GAME_HEADER1_H
-#define FINALS_GAME_HEADER1_H
+#ifndef FINALS_GAME_HEADER_FUNCTIONS_H
+#define FINALS_GAME_HEADER_FUNCTIONS_H
+
 
 #include <cstdint>
 #include <string>
