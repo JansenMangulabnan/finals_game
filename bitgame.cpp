@@ -11,51 +11,52 @@
 using namespace std;
 
 void BitGame::generate_round(int difficulty) {
-    base_val = rand() % 256;
+    base_val = rand() % 256; // 0 to 255 rng
     final_val = base_val;
-    
-    // tell the compiler operation_step belongs to BitGame
+
+    // pipeline belong to Bitgame
     vector<BitGame::operation_step> pipeline;
 
     for (int i = 0; i < difficulty; i++) {
-        uint8_t random_byte = rand() % 256; 
+        uint8_t random_byte = rand() % 256;
         int op = rand() % 6;
 
         switch (op) {
-            case 0:
-                final_val &= random_byte;
-                pipeline.push_back({"AND", random_byte});
-                break;
-            case 1:
-                final_val |= random_byte;
-                pipeline.push_back({"OR ", random_byte});
-                break;
-            case 2:
-                final_val ^= random_byte;
-                pipeline.push_back({"XOR", random_byte});
-                break;
-            case 3:
-                final_val = ~final_val;
-                pipeline.push_back({"NOT", 0});
-                break;
-            case 4:
-                final_val = (final_val << 1) & 0xFF;
-                pipeline.push_back({"LSHF", 1});
-                break;
-            case 5:
-                final_val = (final_val >> 1) & 0xFF;
-                pipeline.push_back({"RSHF", 1});
-                break;
+        case 0:
+            final_val &= random_byte;
+            pipeline.push_back({"AND", random_byte});
+            break;
+        case 1:
+            final_val |= random_byte;
+            pipeline.push_back({"OR ", random_byte});
+            break;
+        case 2:
+            final_val ^= random_byte;
+            pipeline.push_back({"XOR", random_byte});
+            break;
+        case 3:
+            final_val = ~final_val;
+            pipeline.push_back({"NOT", 0});
+            break;
+        case 4:
+            final_val = (final_val << 1) & 0xFF;
+            pipeline.push_back({"LSHF", 1});
+            break;
+        case 5:
+            final_val = (final_val >> 1) & 0xFF;
+            pipeline.push_back({"RSHF", 1});
+            break;
         }
     }
 
-
     string title = "|================== Bitwise Operation Game (Level: " + to_string(difficulty) + ", Score: " + to_string(score) + ") ==================|";
-    cout << endl << title << endl << endl;
+    cout << endl
+         << title << endl
+         << endl;
 
     to_center_msg(title, 8); // initial val cout
     cout << bitset<8>(base_val) << endl;
-    
+
     for (size_t i = 0; i < pipeline.size(); i++) {
         to_center_msg(title, pipeline[i].op_type.length()); // operation cout
         cout << pipeline[i].op_type << endl;
@@ -64,8 +65,8 @@ void BitGame::generate_round(int difficulty) {
         if (pipeline[i].op_type != "NOT" &&
             pipeline[i].op_type != "LSHF" &&
             pipeline[i].op_type != "RSHF") {
-                to_center_msg(title, 8); // stacked val cout
-                cout << bitset<8>(pipeline[i].byte_val) << endl;
+            to_center_msg(title, 8); // stacked val cout
+            cout << bitset<8>(pipeline[i].byte_val) << endl;
         }
     }
 }
@@ -78,7 +79,8 @@ void BitGame::start() {
     string input;
     while (true) {
         int current_difficulty = (score / 2) + 1;
-        if (current_difficulty > 10) { // limiter of level
+        if (current_difficulty > 10) { 
+            // limiter of level
             current_difficulty = 10;
         }
 
@@ -90,24 +92,30 @@ void BitGame::start() {
         cout << "Enter the final integer result ([Q/q] to quit): ";
         cin >> input;
 
-        if (input == "q" || input == "Q") {
-            cout << endl << "Exiting the game." << endl;
+        if (input == "q" || input == "Q") { // quit
+            cout << endl
+                 << "Exiting the game." << endl;
             clear_cls(1000, 0);
             break;
         }
 
-        try {
+        try { // check if correct
             int user_guess = stoi(input);
             if (user_guess == (int)final_val) {
-                cout << endl << "Correct! +1 point.\n";
+                cout << endl
+                     << "Correct! +1 point.\n";
                 score++;
                 clear_cls(1000, 0);
-            } else {
-                cout << endl << "Wrong. The result was: " << (int)final_val << "\n";
+            }
+            else {
+                cout << endl
+                     << "Wrong. The result was: " << (int)final_val << "\n";
                 clear_cls(1500, 0);
             }
-        } catch (...) { // error handling
-            cout << endl << "Invalid input.\n";
+        }
+        catch (...) { // error handling
+            cout << endl
+                 << "Invalid input.\n";
             clear_cls(1000, 0);
         }
     }

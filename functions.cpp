@@ -7,7 +7,7 @@
 using namespace std;  
 
 
-void clear_cls(int wait_before, int wait_after) {
+void clear_cls(int wait_before, int wait_after) { // delay before clearing terminal
     #ifdef _WIN32
         this_thread::sleep_for(chrono::milliseconds(wait_before));
         system("cls");
